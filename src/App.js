@@ -19,9 +19,18 @@ const App = () => {
     setInput(e.target.value);
   }
   const addToList = () => {
-    setItems((prevItems) => {
-      return [...prevItems, input];
-    });
+    // setItems((prevItems) => {
+    //   return [...prevItems, input];
+    // });
+    firebase
+      .firestore()
+      .collection("items")
+      .add({
+        item: input
+      })
+      .then(() => console.log("Added Successfully"))
+      .catch(err => console.log("Error: ", err))
+      
     setInput("");
   }
   const handleDeleteItem = (id) => {
