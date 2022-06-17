@@ -14,6 +14,12 @@ const App = () => {
     });
     setInput(" ");
   }
+  const handleDeleteItem = (id) => {
+    
+    setItems((oldItems) => {
+      return oldItems.filter((item,index) => index !== id);
+    });
+  }
   return (
     <>
       <div className="app">
@@ -23,16 +29,23 @@ const App = () => {
           <br />
           <input 
             type="text" 
-            value={input}
             placeholder= "Add Todo items ..."
+            value={input}
             onChange={handleChange}
           />
           <button onClick={addToList}> + </button> 
 
           <ol>
             {/* <li>{input}</li> */}
-            {items.map((item) => {
-              return <ToDoLists item= {item} />
+            {items.map((item, index) => {
+              return (
+                <ToDoLists 
+                  key={index} 
+                  id={index} 
+                  item= {item} 
+                  onDeleteItem= {handleDeleteItem}
+                />
+              );
             })}
           </ol>
         </div>

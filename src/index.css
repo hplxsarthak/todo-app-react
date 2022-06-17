@@ -82,3 +82,44 @@ ol li {
   color: #668daa;
   text-transform: capitalize;
 }
+
+.todo_style{
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+}
+.todo_style .fa-times{
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #668daa;
+  border-radius: 50%;
+  margin: 0 15px 0 35px;
+  color: aliceblue;
+}
+
+.todo_style .fa-times:hover{
+  background-color: red;
+}
+
+@media (max-width: 768px){
+  .app{
+    width: 55%;
+  }
+  .todo_style .fa-times{
+    margin: 0 15px 0 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  button {
+    margin-left: 5px;
+    min-height: 40px;
+    width: 40px;
+    color: #fff;
+    font-size: 30px;
+  }
+}
