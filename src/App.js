@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ToDoLists from "./TodoLists";
+import firebase from 'firebase/compat/app';
 
 const App = () => {
   const [input, setInput] = useState("");
   const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection('items')
+      .onSnapshot((snapshot) => {
+        setItems(snapshot.docs.map(doc => doc.data().item))        
+      });
+  },[]) 
 
   const handleChange = (e) => {
     setInput(e.target.value);
