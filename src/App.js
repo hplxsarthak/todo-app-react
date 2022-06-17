@@ -12,7 +12,7 @@ const App = () => {
     setItems((prevItems) => {
       return [...prevItems, input];
     });
-    setInput(" ");
+    setInput("");
   }
   const handleDeleteItem = (id) => {
     
