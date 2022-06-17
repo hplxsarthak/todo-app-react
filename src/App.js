@@ -10,6 +10,7 @@ const App = () => {
     firebase
       .firestore()
       .collection('items')
+      .orderBy('timestamp','desc')
       .onSnapshot((snapshot) => {
         setItems(snapshot.docs.map(doc => doc.data().item))        
       });
@@ -26,11 +27,12 @@ const App = () => {
       .firestore()
       .collection("items")
       .add({
-        item: input
+        item: input,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
       })
       .then(() => console.log("Added Successfully"))
       .catch(err => console.log("Error: ", err))
-      
+
     setInput("");
   }
   const handleDeleteItem = (id) => {
