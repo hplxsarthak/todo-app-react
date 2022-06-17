@@ -12,7 +12,7 @@ const App = () => {
       .collection('items')
       .orderBy('timestamp','desc')
       .onSnapshot((snapshot) => {
-        setItems(snapshot.docs.map(doc => doc.data().item))        
+        setItems(snapshot.docs.map(doc => ({id: doc.id, item: doc.data().item})))        
       });
   },[]) 
 
@@ -58,12 +58,11 @@ const App = () => {
 
           <ol>
             {/* <li>{input}</li> */}
-            {items.map((item, index) => {
+            {items.map((item) => {
               return (
                 <ToDoLists 
-                  key={index} 
-                  id={index} 
-                  item= {item} 
+                  key={item.id} 
+                  item= {item.item} 
                   onDeleteItem= {handleDeleteItem}
                 />
               );
