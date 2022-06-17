@@ -10,7 +10,7 @@ const App = () => {
     firebase
       .firestore()
       .collection('items')
-      .orderBy('timestamp','desc')
+      .orderBy('timestamp','asc')
       .onSnapshot((snapshot) => {
         setItems(snapshot.docs.map(doc => ({id: doc.id, item: doc.data().item})))        
       });
@@ -20,9 +20,6 @@ const App = () => {
     setInput(e.target.value);
   }
   const addToList = () => {
-    // setItems((prevItems) => {
-    //   return [...prevItems, input];
-    // });
     firebase
       .firestore()
       .collection("items")
@@ -36,10 +33,13 @@ const App = () => {
     setInput("");
   }
   const handleDeleteItem = (id) => {
-    
-    setItems((oldItems) => {
-      return oldItems.filter((item,index) => index !== id);
-    });
+
+    const docsRef = firebase.firestore().collection("items").doc(id);
+
+    docsRef
+      .delete()
+      .then(() => console.log("Deleted Successfully"))
+      .catch(err => console.log("Error: ", err))
   }
   return (
     <>
@@ -57,12 +57,11 @@ const App = () => {
           <button onClick={addToList}> + </button> 
 
           <ol>
-            {/* <li>{input}</li> */}
             {items.map((item) => {
               return (
                 <ToDoLists 
                   key={item.id} 
-                  item= {item.item} 
+                  item= {item} 
                   onDeleteItem= {handleDeleteItem}
                 />
               );
